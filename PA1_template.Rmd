@@ -64,7 +64,7 @@ ggplot(data=dailyAverages, aes(x=interval, y=steps)) +
 maxStep <- dailyAverages[which.max(dailyAverages$steps),]
 
 ```
-The max step `r maxStep$steps` happened at `r maxStep$intervalTime` of the day
+The max step `r round(maxStep$steps)` happened at `r maxStep$intervalTime` of the day
 
 ## Imputing missing values
 Code to describe and show a strategy for imputing missing data
@@ -91,10 +91,11 @@ imputedData$steps <- impute(data$steps, fun=mean)
 stepsImputedDaily <- tapply(imputedData$steps, imputedData$date, sum)
 qplot(stepsImputedDaily, xlab='Daily histogram of the total steps (Imputed)', ylab='Frequency', binwidth=500)
 
-meanImputedStep <- mean(stepsImputedDaily)
-medianImputedStep <- median(stepsImputedDaily)
+meanImputedStep <- as.character(round(mean(stepsImputedDaily)))
+medianImputedStep <- as.character(round(median(stepsImputedDaily)))
 ```
-- Mean: `r meanImputedStep` and Median:  `r medianImputedStep` of the imputed data
+
+Mean: `r meanImputedStep` and Median:  `r medianImputedStep` of the imputed data
 
 ## Are there differences in activity patterns between weekdays and weekends?
 Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
